@@ -3,6 +3,8 @@ import { Configuration, HotModuleReplacementPlugin } from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import * as webpack from 'webpack';
 import * as webpackDevServer from 'webpack-dev-server';
+import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
+import ESLintPlugin from "eslint-webpack-plugin";
 const config: webpack.Configuration = {
   mode: "development",
   output: {
@@ -35,6 +37,12 @@ const config: webpack.Configuration = {
       template: "src/index.html",
     }),
     new HotModuleReplacementPlugin(),
+    new ForkTsCheckerWebpackPlugin({
+        async: false
+      }),
+      new ESLintPlugin({
+        extensions: ["js", "jsx", "ts", "tsx"],
+      }),
   ],
   devtool: "source-map",
   devServer: {
